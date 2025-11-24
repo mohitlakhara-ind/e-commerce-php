@@ -84,9 +84,9 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 								<div class="panel-body">
 									<ul>
-										<li><a href="/products">All</a></li>
+										<li><a href="<?= site_url('products') ?>">All</a></li>
 										<?php foreach($categories as $category): ?>
-											<li><a href="/products?c=<?= htmlspecialchars($category['title']); ?>"><?= htmlspecialchars($category['title']); ?></a></li>
+											<li><a href="<?= site_url('products') ?>?c=<?= htmlspecialchars($category['title']); ?>"><?= htmlspecialchars($category['title']); ?></a></li>
 										<?php endforeach; ?>
 									</ul>
 								</div>
@@ -94,12 +94,12 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 					  	</div>
 						<br>
 						<?php if(isset($_GET['c'])): ?>
-							<form action="/products?c=<?= filter_input(INPUT_GET, 'c') ?>" method="post">
+							<form action="<?= site_url('products') ?>?c=<?= urlencode(filter_input(INPUT_GET, 'c')) ?>" method="post">
 								<?php CSRF::csrfInputField() ?>
 							    <div class="form-group">
 								    <input name="q" type="search" class="form-control" placeholder="Search...">
 						<?php else: ?>
-							<form action="/products" method="post">
+							<form action="<?= site_url('products') ?>" method="post">
 								<?php CSRF::csrfInputField() ?>
 							    <div class="form-group">
 								    <input name="q" type="search" class="form-control" placeholder="Search...">
@@ -114,18 +114,27 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div class="row">
+				<div class="products-grid">
 					<?php if(!$searchEmpty): ?>
 						<?php foreach($products as $product): ?>
-							<div class="col-md-4">
+							<div class="product-grid__cell">
 								<div class="product-item">
 									<div class="product-thumb">
 										<!--<span class="bage">Sale</span>-->
 										<img class="img-responsive" src="<?= htmlspecialchars(unserialize($product['images'])[0]) ?>" alt="product-img" />
 									</div>
 									<div class="product-content">
-										<h4><a href="/item?id=<?= htmlspecialchars($product['id']) ?>"><?= htmlspecialchars($product['title']) ?></a></h4>
-										<p class="price">₦ <?= number_format($product['price'], 2) ?></p>
+										<h4><a href="<?= site_url('item') ?>?id=<?= htmlspecialchars($product['id']) ?>"><?= htmlspecialchars($product['title']) ?></a></h4>
+										<p class="price">INR <?= number_format($product['price'], 2) ?></p>
+										<form class="mt-10" method="post" action="<?= site_url('cart-add-item') ?>">
+											<?php CSRF::csrfInputField() ?>
+											<input type="hidden" name="id" value="<?= htmlspecialchars($product['id']) ?>">
+										    <input type="hidden" name="quantity" value="1">
+										    <input type="hidden" name="redirect" value="<?= htmlspecialchars($_SERVER['REQUEST_URI'] ?? site_url('products')) ?>">
+											<button type="submit" class="btn btn-main btn-small btn-block">
+												<i class="tf-ion-android-cart"></i> Add to Cart
+											</button>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -135,7 +144,7 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 							<div class="block text-center">
 								<i class="tf-ion-ios-cart-outline"></i>
 								<h2 class="text-center">No items found.</h2>
-								<a href="/products" class="btn btn-main mt-20">Return to shop</a>
+								<a href="<?= site_url('products') ?>" class="btn btn-main mt-20">Return to shop</a>
 							</div>
 						</div>
 					<?php endif ?>

@@ -2,6 +2,7 @@
 
 session_start();
 
+require_once __DIR__ . '/../../helpers/asset.php';
 require __DIR__ . '/../db.php';
 require __DIR__ . '/../../csrf.php';
 
@@ -16,7 +17,8 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         if(password_verify($password, $result[0]['password'])) {
             $_SESSION['admin'] = 'admin';
-            header('Location: /admin/home');
+            header('Location: ' . site_url('admin/home'));
+            exit();
         }
         $error = true;
     }
@@ -35,7 +37,7 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NovaMart | Admin access</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <link href="/views/admin/assets/css/auth.css" rel="stylesheet">
+    <link href="<?= asset_url('views/admin/assets/css/auth.css') ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -71,7 +73,7 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
             </div>
         </div>
     </div>
-    <script src="/views/admin/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="<?= asset_url('views/admin/assets/vendor/jquery/jquery.min.js') ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </body>

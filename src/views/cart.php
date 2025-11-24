@@ -10,26 +10,42 @@ require __DIR__ . '/admin/util.php';
 
 if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
   if(!isset($_SESSION['name'])) {
-    header('Location: /login');
+    $redirectUrl = login_url_with_redirect($_SERVER['REQUEST_URI'] ?? site_url('cart'));
+    header('Location: ' . $redirectUrl);
+    exit;
   } else {
     $details = serialize($_SESSION['cart']);
     $timestamp = gmdate('Y-m-d h:i:s');
     $statement = $pdo->prepare("INSERT INTO transactions (name, email, address, details, timestamp) VALUES (?, ?, ?, ?, ?)");
     $statement->execute(array($_SESSION['name'], $_SESSION['email'], $_SESSION['address'], $details, $timestamp));
-    $email = new \SendGrid\Mail\Mail();
-    $email->setFrom("donotreply@YOUR_SENGRID_DOMAIN", "COMPANY NAME");
-    $email->setSubject("Invoice");
-    $email->addTo($_SESSION['email'], $_SESSION['name']);
-    $message = generateInvoice($timestamp);
-    $email->addContent("text/html", $message);
-    $sendgrid = new \SendGrid($key);
-    try {
-      $sendgrid->send($email);
-    } catch (Exception $e) {
-      
+
+    $sendgridKey = getenv('SENDGRID_API_KEY') ?: ($key ?? '');
+    $sendgridFrom = getenv('SENDGRID_FROM_EMAIL') ?: '';
+    $sendgridFromName = getenv('SENDGRID_FROM_NAME') ?: 'NovaMart';
+
+    if ($sendgridKey && filter_var($sendgridFrom, FILTER_VALIDATE_EMAIL)) {
+      $email = new \SendGrid\Mail\Mail();
+      $email->setFrom($sendgridFrom, $sendgridFromName);
+      $email->setSubject("Invoice");
+      $email->addTo($_SESSION['email'], $_SESSION['name']);
+      $message = generateInvoice($timestamp);
+      $email->addContent("text/html", $message);
+      $sendgrid = new \SendGrid($sendgridKey);
+      try {
+        $sendgrid->send($email);
+      } catch (Exception $e) {
+        error_log('SendGrid error: ' . $e->getMessage());
+      }
+    } else {
+      error_log('SendGrid skipped: missing SENDGRID_API_KEY or SENDGRID_FROM_EMAIL');
     }
-    header('Location: /confirmation');
+    header('Location: ' . site_url('confirmation'));
+    exit;
   }
+} elseif (isset($_POST['remove_all']) && CSRF::validateToken($_POST['token'])) {
+  unset($_SESSION['cart']);
+  header('Location: ' . site_url('cart'));
+  exit;
 }
 
 ?>
@@ -41,7 +57,7 @@ if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
         <div class="block text-center">
         	<i class="tf-ion-ios-cart-outline"></i>
           	<h2 class="text-center">Your cart is currently empty.</h2>
-          	<a href="/products" class="btn btn-main mt-20">Return to shop</a>
+          	<a href="<?= site_url('products') ?>" class="btn btn-main mt-20">Return to shop</a>
       </div>
     </div>
   </div>
@@ -54,7 +70,7 @@ if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
         <div class="col-md-8 col-md-offset-2">
           <div class="block">
             <div class="product-list">
-              <form method="post">
+              <form method="post" action="<?= site_url('cart') ?>">
                 <?php CSRF::csrfInputField() ?>
                 <table class="table">
                   <thead>
@@ -76,12 +92,12 @@ if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
                               <a href="#!"><?= htmlspecialchars($item['title']) ?></a>
                             </div>
                           </td>
-                          <td class="">₦<?= number_format($item['price'], 2) ?></td>
+                          <td class="">INR <?= number_format($item['price'], 2) ?></td>
                           <td class="">   <?= htmlspecialchars($item['quantity']) ?></td>
                           <td class="">
-                            <a href="/cart-remove-item?id=<?= $item['id'] ?>" class="product-remove">Remove</a>
+                            <a href="<?= site_url('cart-remove-item') ?>?id=<?= $item['id'] ?>" class="product-remove">Remove</a>
                           </td>
-                          <td class="">₦<?= number_format($item['price'] * htmlspecialchars($item['quantity']), 2) ?></td>
+                          <td class="">INR <?= number_format($item['price'] * htmlspecialchars($item['quantity']), 2) ?></td>
                         </tr>
                       <?php endforeach; ?>
 
@@ -94,7 +110,7 @@ if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
                       <td class=""></td>
                       <td class=""></td>
                       <td class=""></td>
-                      <td class="">₦<?php
+                      <td class="">INR <?php
                           if(!isset($_SESSION['cart'])) {
                             echo '0.00';
                           } else {
@@ -109,10 +125,10 @@ if(isset($_POST['checkout']) && CSRF::validateToken($_POST['token'])) {
                     </tr>
                   </tbody>
                 </table>
-                <form action="/cart" method="post">
-                  <?php CSRF::csrfInputField() ?>
-                  <button name="checkout" type="submit" class="btn btn-main pull-right">Checkout</button>
-                </form>
+                <div class="cart-actions text-right">
+                  <button name="remove_all" type="submit" class="btn btn-default">Remove from Cart</button>
+                  <button name="checkout" type="submit" class="btn btn-main">Order Now</button>
+                </div>
               </form>
             </div>
           </div>

@@ -56,5 +56,58 @@ if (!function_exists('asset_url')) {
         $prefix = $trimmedBase === '' ? '' : $trimmedBase;
         return ($prefix === '' ? '' : $prefix) . '/' . $normalized;
     }
+
+    function sanitize_redirect_path(?string $path): ?string
+    {
+        if ($path === null) {
+            return null;
+        }
+
+        $path = trim(str_replace("\0", '', $path));
+        if ($path === '') {
+            return null;
+        }
+
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            $parts = parse_url($path);
+            $path = ($parts['path'] ?? '/');
+            if (!empty($parts['query'])) {
+                $path .= '?' . $parts['query'];
+            }
+        }
+
+        if ($path === '' || $path[0] !== '/') {
+            return null;
+        }
+
+        return $path;
+    }
+
+    function resolve_redirect_target(?string $candidate = null, ?string $fallback = null): string
+    {
+        $target = sanitize_redirect_path($candidate);
+        if (!$target) {
+            $target = sanitize_redirect_path($fallback);
+        }
+
+        if (!$target) {
+            $target = site_url();
+        }
+
+        return $target;
+    }
+
+    function login_url_with_redirect(?string $target = null): string
+    {
+        $targetPath = sanitize_redirect_path($target);
+        if (!$targetPath) {
+            $targetPath = sanitize_redirect_path($_SERVER['REQUEST_URI'] ?? null) ?? site_url();
+        }
+
+        $loginUrl = site_url('login');
+        $separator = strpos($loginUrl, '?') === false ? '?' : '&';
+
+        return $loginUrl . $separator . 'redirect=' . rawurlencode($targetPath);
+    }
 }
 

@@ -35,10 +35,11 @@ CREATE TABLE `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
-
-
-
-
+INSERT INTO categories VALUES ("1","Fresh Produce");
+INSERT INTO categories VALUES ("2","Pantry Staples");
+INSERT INTO categories VALUES ("3","Snacks");
+INSERT INTO categories VALUES ("4","Beverages");
+INSERT INTO categories VALUES ("5","Wellness");
 CREATE TABLE `contact` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -99,10 +100,17 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
-
-
-
-
+INSERT INTO products (`id`, `title`, `price`, `description`, `category`, `images`) VALUES
+("1","Sunrise Kale Mix","3200","Crisp baby kale, rainbow chard, and micro herbs harvested before dawn for peak sweetness. Perfect for quick sautees or raw salads.","Fresh Produce","a:2:{i:0;s:40:\"views/images/shop/products/product-1.jpg\";i:1;s:40:\"views/images/shop/products/product-2.jpg\";}"),
+("2","Urban Citrus Crate","5800","A rotating four-pack of juicing oranges, ruby grapefruit, pink lemons, and kumquats sourced from small-batch growers.","Fresh Produce","a:2:{i:0;s:40:\"views/images/shop/products/product-3.jpg\";i:1;s:40:\"views/images/shop/products/product-4.jpg\";}"),
+("3","Coalition Cold Brew Concentrate","4500","48-hour steeped beans from Taraba with tasting notes of cola, cocoa nib, and tamarind. Serve over ice or steam for lattes.","Beverages","a:2:{i:0;s:40:\"views/images/shop/products/product-5.jpg\";i:1;s:40:\"views/images/shop/products/product-6.jpg\";}"),
+("4","Heritage Grain Pasta Set","3400","Stone-milled spelt and durum pasta duo with a nutty bite. Includes bronze-cut rigatoni and mafaldine.","Pantry Staples","a:2:{i:0;s:40:\"views/images/shop/products/product-7.jpg\";i:1;s:40:\"views/images/shop/products/product-8.jpg\";}"),
+("5","Spiced Hibiscus Jam","2600","Slow-reduced zobo petals, orange zest, and allspice for toast, yogurt bowls, or cheese boards.","Pantry Staples","a:2:{i:0;s:40:\"views/images/shop/products/product-9.jpg\";i:1;s:40:\"views/images/shop/products/product-3.jpg\";}"),
+("6","Golden Plantain Chips","2100","Twice-fried plantain ribbons finished with smoked sea salt. Crunchy, savory, and sunshine bright.","Snacks","a:2:{i:0;s:40:\"views/images/shop/products/product-2.jpg\";i:1;s:40:\"views/images/shop/products/product-5.jpg\";}"),
+("7","Smoky Suya Cashews","3800","Hand-roasted cashews dusted with suya spice, ginger, and date sugar for a balanced heat.","Snacks","a:2:{i:0;s:40:\"views/images/shop/products/product-4.jpg\";i:1;s:40:\"views/images/shop/products/product-6.jpg\";}"),
+("8","Midnight Bean Blend","8700","Heirloom black beans, adzuki, and black-eyed peas ready for soups or grain bowls. Pre-soaked and ready in 20 minutes.","Pantry Staples","a:2:{i:0;s:40:\"views/images/shop/products/product-8.jpg\";i:1;s:40:\"views/images/shop/products/product-1.jpg\";}"),
+("9","Cocoa Nib Granola","5200","Crunchy millet clusters baked with cocoa nibs, coconut butter, and dates. Snack straight from the jar.","Snacks","a:2:{i:0;s:40:\"views/images/shop/products/product-7.jpg\";i:1;s:40:\"views/images/shop/products/product-9.jpg\";}"),
+("10","Cedarwood Dish Soap","2900","Plant-based soap infused with cedarwood and grapefruit oils that cuts grease without drying hands.","Wellness","a:2:{i:0;s:40:\"views/images/shop/products/product-5.jpg\";i:1;s:40:\"views/images/shop/products/product-2.jpg\";}");
 CREATE TABLE `transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,

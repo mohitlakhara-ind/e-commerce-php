@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 function generateInvoice($date){
     $invoice = "<!DOCTYPE html>
@@ -132,7 +134,7 @@ function generateInvoice($date){
                                             xmlns:xlink=\"http://www.w3.org/1999/xlink\">
                                             <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" font-size=\"40\"
                                                 font-family=\"AustinBold, Austin\" font-weight=\"bold\">
-                                            <g id=\"Group\" transform=\"translate(-108.000000, -297.000000)\" fill=\"#4c6ef5\">
+                                            <g id=\"Group\" transform=\"translate(-108.000000, -297.000000)\" fill=\"#b388ff\">
                                                     <text id=\"AVIATO\">
                                                     <tspan x=\"108.94\" y=\"325\">NOVAMART</tspan>
                                                     </text>
@@ -174,7 +176,7 @@ function generateInvoice($date){
                     foreach($_SESSION['cart'] as $item) {
                         $invoice .= "<tr class=\"item\">";
                         $invoice .= "<td>" . htmlspecialchars($item['title']) . "(x" . htmlspecialchars($item['quantity'])  . ")</td>";
-                        $invoice .= "<td>₦" . number_format($item['price'] * $item['quantity'], 2) . "</td>";
+                        $invoice .= "<td>INR " . number_format($item['price'] * $item['quantity'], 2) . "</td>";
                         $invoice .= "</tr>";
                         $total += $item['price'] * $item['quantity'];
                     }
@@ -182,7 +184,7 @@ function generateInvoice($date){
                     $invoice .= "<tr class=\"total\">
                         <td></td>
 
-                        <td>Total: ₦" . number_format($total, 2) . "</td>
+                        <td>Total: INR " . number_format($total, 2) . "</td>
                     </tr>
                 </table>
             </div>

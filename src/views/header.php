@@ -1,6 +1,8 @@
 <?php 
 ob_start();
-session_start(); 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); 
+}
 
 require_once __DIR__ . '/../helpers/asset.php';
 ?>
@@ -100,7 +102,7 @@ require_once __DIR__ . '/../helpers/asset.php';
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
                                     font-family="AustinBold, Austin" font-weight="bold">
-                                    <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#4c6ef5">
+                                    <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#b388ff">
                                         <text id="AVIATO">
                                             <tspan x="108.94" y="325">NOVAMART</tspan>
                                         </text>
@@ -127,7 +129,7 @@ require_once __DIR__ . '/../helpers/asset.php';
 
                                     <div class="cart-summary">
                                         <span>Total</span>
-                                        <span class="total-price">₦ 0.00</span>
+                                        <span class="total-price">INR 0.00</span>
                                     </div>
                                     <ul class="text-center cart-buttons">
                                         <li><a href="<?= site_url('cart') ?>" class="btn btn-small">View Cart</a></li>
@@ -145,14 +147,14 @@ require_once __DIR__ . '/../helpers/asset.php';
                                                     <span><?= htmlspecialchars($item['quantity']) ?> x</span>
                                                     <span><?= number_format($item['price'], 2) ?></span>
                                                 </div>
-                                                <h5><strong>₦ <?= number_format($item['quantity'] * $item['price'], 2) ?></strong></h5>
+                                                <h5><strong>INR <?= number_format($item['quantity'] * $item['price'], 2) ?></strong></h5>
                                             </div>
                                             <a href="<?= site_url('cart-remove-item') ?>?id=<?= htmlspecialchars($item['id']) ?>"><i class="tf-ion-close"></i></a>
                                         </div>
                                     <?php endforeach; ?>
                                     <div class="cart-summary">
                                         <span>Total</span>
-                                        <span class="total-price">₦<?php 
+                                        <span class="total-price">INR <?php 
                                                 $total = 0;
                                                 foreach($_SESSION['cart'] as $item) {
                                                     $total += $item['price'] * $item['quantity'];

@@ -12,10 +12,11 @@ $(function() {
 var revenueChart = document.getElementById("revenue").getContext("2d");
 var ordersChart = document.getElementById("orders").getContext("2d");
 
+var adminConfig = window.NovaMartAdmin || {};
+var statsEndpoint = adminConfig.statsEndpoint || '/admin/stats';
 var response
-console.log('starting')
 $.ajax({
-    url: '/admin/stats',
+    url: statsEndpoint,
     type: 'get',
     success: function(data){
         response = JSON.parse(data)

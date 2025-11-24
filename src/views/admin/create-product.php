@@ -19,7 +19,8 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $paths = serialize(uploadImages());
     $statement = $pdo->prepare("INSERT INTO products(title, price, description, category, images) VALUES (?, ?, ?, ?, ?)");
     $statement->execute(array($title, $price, $description, $category, $paths));
-    header('Location: /admin/products');
+    header('Location: ' . site_url('admin/products'));
+    exit();
 }
 
 $statement = $pdo->prepare("SELECT * FROM categories");
@@ -33,7 +34,7 @@ $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-header">Create Product</div>
             <div class="card-body">
                 <div class="col-md-6">
-                    <form action="/admin/products/create" method="post" enctype="multipart/form-data">
+                    <form action="<?= site_url('admin/products/create') ?>" method="post" enctype="multipart/form-data">
                         <?php CSRF::csrfInputField() ?>
                         <div class="mb-3">
                             <label class="form-label">Name</label>
@@ -61,7 +62,7 @@ $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
                             		<?php endforeach; ?>
                             	  </ul>
                         	    </div>
-                            	<input id="category" type="text" name="category" class="form-control" aria-label="Text input with dropdown button" value="<?= $items[0]['category'] ?>">
+                            	<input id="category" type="text" name="category" class="form-control" aria-label="Text input with dropdown button" value="<?= isset($categories[0]) ? htmlspecialchars($categories[0]['title']) : '' ?>">
                         	</div>
                         </div>
                         <div class="mb-3">

@@ -4,7 +4,9 @@ require __DIR__ . '/header.php';
 require __DIR__ . '/db.php';
 
 if(!isset($_SESSION['name'])) {
-  header('Location: /login');
+  $loginRedirect = login_url_with_redirect($_SERVER['REQUEST_URI'] ?? site_url('orders'));
+  header('Location: ' . $loginRedirect);
+  exit;
 }
 
 $orders;
@@ -35,7 +37,7 @@ $orders = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <?php foreach($orders as $order): ?>
                                 <tr>
                                 <td><?= htmlspecialchars($order['timestamp']) ?></td>
-                                <td>₦<?php
+                                <td>INR <?php
                                     $details = unserialize($order['details']);
                                     $total = 0;
                                     foreach($details as $detail) {

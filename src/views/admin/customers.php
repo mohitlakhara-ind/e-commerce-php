@@ -60,14 +60,14 @@ if(isset($_GET['id'])) {
 <div class="container">
     <div class="page-title">
         <h3>Customers
-        <a href="/admin/customers/create" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus"></i> Add</a>
+        <a href="<?= site_url('admin/customers/create') ?>" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus"></i> Add</a>
         </h3>
     </div>
     <?php if($edit): ?>
         <div class="card">
             <div class="card-header">Edit Customer</div>
             <div class="card-body">
-                <form accept-charset="utf-8" method="post" action="/admin/customers">
+                <form accept-charset="utf-8" method="post" action="<?= site_url('admin/customers') ?>">
                     <?php CSRF::csrfInputField() ?>
                     <div class="row g-2">
                         <div class="mb-3 col-md-4">
@@ -118,10 +118,10 @@ if(isset($_GET['id'])) {
                                     <td><?= $customer['phone'] ?></td>
                                     <td><?= $customer['address'] ?></td>
                                     <td class="text-end">
-                                        <form action="/admin/customers" method="post">
+                                        <form action="<?= site_url('admin/customers') ?>" method="post">
                                             <?php CSRF::csrfInputField() ?>
                                             <input type="text" name="id" value="<?= $customer['id'] ?>" hidden>
-                                            <a href="/admin/customers?id=<?= $customer['id']; ?>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
+                                            <a href="<?= site_url('admin/customers') . '?id=' . $customer['id']; ?>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
                                             <button name="delete" type="submit" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>

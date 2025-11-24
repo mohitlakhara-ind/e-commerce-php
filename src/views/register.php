@@ -1,11 +1,20 @@
 <?php 
 
 session_start();
+require_once __DIR__ . '/../helpers/asset.php';
 require __DIR__ . '/../csrf.php';
 require __DIR__ . '/db.php';
 
+$rawRedirect = filter_input(INPUT_GET, 'redirect', FILTER_UNSAFE_RAW);
+if ($rawRedirect === null || $rawRedirect === '') {
+    $rawRedirect = filter_input(INPUT_POST, 'redirect', FILTER_UNSAFE_RAW);
+}
+$redirectParam = sanitize_redirect_path($rawRedirect);
+$redirectTarget = $redirectParam ?: site_url();
+
 if(isset($_SESSION['name'])) {
-    header('Location: /');
+    header('Location: ' . $redirectTarget);
+    exit;
 }
 
 $error = false;
@@ -26,13 +35,13 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
   } else {
     $statement = $pdo->prepare("INSERT INTO users (firstname, lastname, email, phone, address, password, created) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $statement->execute(array($firstname, $lastname, $email, $phone, $address, $password, $createdTime));
-    session_start();
     $_SESSION['name'] = $lastname . ' ' . $firstname;
     $_SESSION['email'] = $email;
     $_SESSION['phone'] = $phone;
     $_SESSION['address'] = $address;
     $_SESSION['created-time'] = $createdTime;
-    header('Location: /');
+    header('Location: ' . $redirectTarget);
+    exit;
   }
 
 }
@@ -56,20 +65,20 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
   <meta name="generator" content="NovaMart Commerce Stack">
   
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="views/images/favicon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="<?= asset_url('views/images/favicon.png') ?>" />
   
-  <link rel="stylesheet" href="views/plugins/themefisher-font/style.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/themefisher-font/style.css') ?>">
   <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="views/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/bootstrap/css/bootstrap.min.css') ?>">
   
   <!-- Animate css -->
-  <link rel="stylesheet" href="views/plugins/animate/animate.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/animate/animate.css') ?>">
   <!-- Slick Carousel -->
-  <link rel="stylesheet" href="views/plugins/slick/slick.css">
-  <link rel="stylesheet" href="views/plugins/slick/slick-theme.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/slick/slick.css') ?>">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/slick/slick-theme.css') ?>">
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="views/css/style.css">
+  <link rel="stylesheet" href="<?= asset_url('views/css/style.css') ?>">
 
 </head>
 
@@ -89,12 +98,12 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
         <?php endif ?>
         <div class="col-md-6 col-md-offset-3">
             <div class="block text-center">
-            <a href="/">
+            <a href="<?= site_url() ?>">
                 <svg width="250px" height="29px" viewBox="0 0 200 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
                         font-family="AustinBold, Austin" font-weight="bold">
-                        <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#4c6ef5">
+                        <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#b388ff">
                             <text id="AVIATO">
                                 <tspan x="108.94" y="325">NOVAMART</tspan>
                             </text>
@@ -102,8 +111,9 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
                     </g>
                 </svg>
             </a>
-            <form class="text-left clearfix" method="post" action="<?= $_SERVER['REQUEST_URI'] ?>" >
+            <form class="text-left clearfix" method="post" action="<?= htmlspecialchars($_SERVER['REQUEST_URI'] ?? site_url('register')) ?>" >
                 <?php CSRF::csrfInputField() ?>
+                <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirectParam ?? '', ENT_QUOTES, 'UTF-8') ?>">
                 <div class="form-group">
                     <input type="text" name="firstname" class="form-control"  placeholder="Firstname">
                 </div>
@@ -137,22 +147,22 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
     =====================================-->
     
     <!-- Main jQuery -->
-    <script src="views/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="<?= asset_url('views/plugins/jquery/dist/jquery.min.js') ?>"></script>
     <!-- Bootstrap 3.1 -->
-    <script src="views/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= asset_url('views/plugins/bootstrap/js/bootstrap.min.js') ?>"></script>
     <!-- Bootstrap Touchpin -->
-    <script src="views/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="<?= asset_url('views/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') ?>"></script>
     <!-- Video Lightbox Plugin -->
-    <script src="views/plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <script src="<?= asset_url('views/plugins/ekko-lightbox/dist/ekko-lightbox.min.js') ?>"></script>
     <!-- Count Down Js -->
-    <script src="views/plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+    <script src="<?= asset_url('views/plugins/syo-timer/build/jquery.syotimer.min.js') ?>"></script>
 
     <!-- slick Carousel -->
-    <script src="views/plugins/slick/slick.min.js"></script>
-    <script src="views/plugins/slick/slick-animation.min.js'"></script>
+    <script src="<?= asset_url('views/plugins/slick/slick.min.js') ?>"></script>
+    <script src="<?= asset_url('views/plugins/slick/slick-animation.min.js') ?>"></script>
 
     <!-- Main Js File -->
-    <script src="views/js/script.js"></script>
+    <script src="<?= asset_url('views/js/script.js') ?>"></script>
     
     
 

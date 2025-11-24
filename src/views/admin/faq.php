@@ -44,14 +44,14 @@ if(isset($_GET['id'])) {
 <div class="container">
     <div class="page-title">
         <h3>FAQ
-        <a href="/admin/faq/create" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus"></i> Add</a>
+        <a href="<?= site_url('admin/faq/create') ?>" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus"></i> Add</a>
         </h3>
     </div>
     <?php if($edit): ?>
         <div class="card">
             <div class="card-header">Edit FAQ</div>
             <div class="card-body">
-                <form accept-charset="utf-8" method="post" action="/admin/faq">
+                <form accept-charset="utf-8" method="post" action="<?= site_url('admin/faq') ?>">
                     <?php CSRF::csrfInputField() ?>
                     <div class="mb-3">
                         <label class="form-label">Question</label>
@@ -85,10 +85,10 @@ if(isset($_GET['id'])) {
                                     <td><?= $faq['question'] ?></td>
                                     <td><?= $faq['answer'] ?></td>
                                     <td class="text-end">
-                                        <form action="/admin/faq" method="post">
+                                        <form action="<?= site_url('admin/faq') ?>" method="post">
                                             <?php CSRF::csrfInputField() ?>
                                             <input type="text" name="id" value="<?= $faq['id'] ?>" hidden>
-                                            <a href="/admin/faq?id=<?= $faq['id']; ?>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
+                                            <a href="<?= site_url('admin/faq') . '?id=' . $faq['id']; ?>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
                                             <button name="delete" type="submit" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>

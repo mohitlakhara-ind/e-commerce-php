@@ -5,7 +5,9 @@ require __DIR__ . '/../csrf.php';
 require __DIR__ . '/db.php';
 
 if(!isset($_SESSION['name'])) {
-  header('Location: /login');
+  $loginRedirect = login_url_with_redirect($_SERVER['REQUEST_URI'] ?? site_url('profile'));
+  header('Location: ' . $loginRedirect);
+  exit;
 }
 
 if(isset($_POST['update']) && CSRF::validateToken($_POST['token'])) {

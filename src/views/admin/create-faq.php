@@ -9,7 +9,8 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $answer = filter_input(INPUT_POST, 'answer');
     $statement = $pdo->prepare("INSERT INTO faq(question, answer) VALUES (?, ?)");
     $statement->execute(array($question, $answer));
-    header('Location: /admin/faq');
+    header('Location: ' . site_url('admin/faq'));
+    exit();
 }
 
 ?>
@@ -18,7 +19,7 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
         <div class="card">
             <div class="card-header">Create FAQ</div>
             <div class="card-body">
-                <form accept-charset="utf-8" method="post" action="/admin/faq/create">
+                <form accept-charset="utf-8" method="post" action="<?= site_url('admin/faq/create') ?>">
                     <?php CSRF::csrfInputField() ?>
                     <div class="mb-3">
                         <label class="form-label">Question</label>

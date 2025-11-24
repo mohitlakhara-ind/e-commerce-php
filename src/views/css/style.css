@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500");
 
 :root {
-  --nm-primary: #4c6ef5;
-  --nm-primary-dark: #364fc7;
-  --nm-secondary: #111b2b;
-  --nm-accent: #ffb347;
-  --nm-surface: #f4f6fb;
-  --nm-muted: #5c6279;
-  --nm-border: #dde1f1;
+  --nm-primary: #b388ff;
+  --nm-primary-dark: #8c57ff;
+  --nm-secondary: #2d1b4f;
+  --nm-accent: #ffb8d2;
+  --nm-surface: #f8f5ff;
+  --nm-muted: #6a5c8b;
+  --nm-border: #e4dafc;
 }
 body {
   line-height: 1.5;
@@ -75,7 +75,7 @@ input[type="email"], input[type="password"], input[type="text"], input[type="tel
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, input[type="tel"]:focus {
   box-shadow: none;
-  border: 1px solid #000;
+  border: 1px solid var(--nm-primary);
 }
 
 .form-control {
@@ -85,7 +85,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .form-control:focus {
   box-shadow: none;
-  border: 1px solid #000;
+  border: 1px solid var(--nm-primary);
 }
 
 .btn-main, .btn-solid-border, .btn-transparent, .btn-small {
@@ -99,7 +99,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   font-weight: 500;
   border-radius: 30px;
   border: none;
-  box-shadow: 0 15px 30px rgba(76, 110, 245, 0.25);
+  box-shadow: 0 15px 30px rgba(142, 94, 233, 0.3);
 }
 
 .btn-main.btn-icon i, .btn-icon.btn-solid-border i, .btn-icon.btn-transparent i, .btn-icon.btn-small i {
@@ -1088,6 +1088,37 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   overflow: hidden;
 }
 
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 30px;
+  margin-left: 0;
+  margin-right: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.products-grid > * {
+  width: 100%;
+  float: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.products-grid .product-item {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.products-grid .product-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .product-item .product-thumb {
   position: relative;
 }
@@ -1180,6 +1211,69 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .product-item .product-content h4 a {
   color: var(--nm-secondary);
+}
+
+/* Invisible placeholders keep the auto-fit grid aligned without showing UI */
+.product-grid__cell--placeholder {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.product-grid__cell--placeholder .product-content {
+  text-align: center;
+}
+
+.product-item--placeholder {
+  border-style: dashed;
+  border-color: var(--nm-border);
+  background: #f9fbff;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+
+.product-item--placeholder .product-content {
+  padding: 25px;
+}
+
+.product-item--placeholder .placeholder-title {
+  font-weight: 600;
+  color: var(--nm-secondary);
+  margin-bottom: 6px;
+}
+
+.product-item--placeholder .placeholder-copy {
+  font-size: 14px;
+  color: var(--nm-muted);
+  margin-bottom: 20px;
+}
+
+.skeleton-block {
+  width: 100%;
+  padding-top: 70%;
+  background: linear-gradient(90deg, #e6eaf5 25%, #f6f7fb 37%, #e6eaf5 63%);
+  background-size: 400% 100%;
+  animation: skeletonPulse 1.8s ease infinite;
+}
+
+.skeleton-button {
+  width: 140px;
+  height: 38px;
+  border-radius: 999px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #e6eaf5 25%, #f6f7fb 37%, #e6eaf5 63%);
+  background-size: 400% 100%;
+  animation: skeletonPulse 1.8s ease infinite;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
 
 .product-modal {

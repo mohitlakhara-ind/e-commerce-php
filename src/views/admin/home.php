@@ -96,7 +96,7 @@ $userCount = $pdo->query("SELECT count(*) FROM users")->fetchColumn();
                         <div class="col-sm-8">
                             <div class="detail">
                                 <p class="detail-subtitle">Revenue</p>
-                                <span class="number">₦ <?= number_format($revenue, 2) ?></span>
+                                <span class="number">INR <?= number_format($revenue, 2) ?></span>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@ $userCount = $pdo->query("SELECT count(*) FROM users")->fetchColumn();
                         <label class="col-sm-2">Send Email <br>
                             <!-- <small class="text-info">Normal Bootstrap elements</small> -->
                         </label>
-                        <form action="/admin/home" method="post">
+                        <form action="<?= site_url('admin/home') ?>" method="post">
                         <?php CSRF::csrfInputField() ?>
                         <div class="col-sm-10">
                             <div class="form-check">
@@ -214,7 +214,7 @@ $userCount = $pdo->query("SELECT count(*) FROM users")->fetchColumn();
                             <div class="mb-3 row">
                                 <div class="col-sm-12">
                                     <div class="row">
-                                        <form action="/admin/home" id="import-form" method="post">
+                                        <form action="<?= site_url('admin/home') ?>" id="import-form" method="post">
                                             <div class="col-sm-1">
                                                 <?php CSRF::csrfInputField() ?>
                                                 <input type="file" name="file" id="file" required>
@@ -226,7 +226,7 @@ $userCount = $pdo->query("SELECT count(*) FROM users")->fetchColumn();
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <form action="/admin/home" method="post">
+                                    <form action="<?= site_url('admin/home') ?>" method="post">
                                         <?php CSRF::csrfInputField() ?>
                                         <button name="export" type="submit" class="btn btn-primary mb-2"><i class="fas fa-file-export"></i> Export</button>
                                     </form>

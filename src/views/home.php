@@ -2,13 +2,18 @@
 
 require __DIR__ . '/header.php'; 
 require __DIR__ . '/db.php';
+require __DIR__ . '/../csrf.php';
 
-$items;
+$items = [];
 $statement = $pdo->prepare("SELECT * FROM products ORDER BY rand() LIMIT 9");
 $statement->execute();
-if($statement->rowCount() > 0) {
+if ($statement->rowCount() > 0) {
     $items = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+$itemsPerRow = 4;
+$itemCount = count($items);
+$placeholdersNeeded = $itemCount % $itemsPerRow === 0 ? 0 : $itemsPerRow - ($itemCount % $itemsPerRow);
 
 ?>
 <section class="products section bg-gray">
@@ -18,23 +23,42 @@ if($statement->rowCount() > 0) {
 				<h2>Fresh drops picked for you</h2>
 			</div>
 		</div>
-		<div class="row">
-		    <?php if(isset($items)): ?>
-    			<?php foreach($items as $item): ?>
-                    <div class="col-md-4">
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                <img class="img-responsive" src="<?= htmlspecialchars(unserialize($item['images'])[0]) ?>" alt="<?= htmlspecialchars($item['title']) ?>" />
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="<?= site_url('item') ?>?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
-                                <p class="price">₦ <?= number_format($item['price'], 2) ?></p>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php endif ?>
+		<div class="products-grid">
+			<?php foreach($items as $item): ?>
+				<div class="col-md-4 product-grid__cell">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive" src="<?= htmlspecialchars(unserialize($item['images'])[0]) ?>" alt="<?= htmlspecialchars($item['title']) ?>" />
+						</div>
+						<div class="product-content">
+							<h4><a href="<?= site_url('item') ?>?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
+							<p class="price">INR <?= number_format($item['price'], 2) ?></p>
+							<form class="mt-10" method="post" action="<?= site_url('cart-add-item') ?>">
+								<?php CSRF::csrfInputField() ?>
+								<input type="hidden" name="id" value="<?= htmlspecialchars($item['id']) ?>">
+								<input type="hidden" name="quantity" value="1">
+								<input type="hidden" name="redirect" value="<?= htmlspecialchars($_SERVER['REQUEST_URI'] ?? site_url()) ?>">
+								<button type="submit" class="btn btn-main btn-small btn-block">
+									<i class="tf-ion-android-cart"></i> Add to Cart
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			<?php endforeach; ?>
 
+			<?php for($i = 0; $i < $placeholdersNeeded; $i++): ?>
+				<div class="col-md-4 product-grid__cell product-grid__cell--placeholder">
+					<div class="product-item product-item--placeholder">
+						<div class="product-thumb skeleton-block"></div>
+						<div class="product-content">
+							<p class="placeholder-title">New picks curated daily</p>
+							<p class="placeholder-copy">More items are on the way.</p>
+							<div class="skeleton-button"></div>
+						</div>
+					</div>
+				</div>
+			<?php endfor; ?>
 		</div>
 	</div>
 </section>

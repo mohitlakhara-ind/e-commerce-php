@@ -147,28 +147,51 @@ function removeExif($image) {
 
 
 function compressImage($source, $destination, $quality) { 
-    // Get image info 
-    $imgInfo = getimagesize($source); 
-    $mime = $imgInfo['mime']; 
-     
-    // Create a new image from file 
+    // Bail out early when GD is missing. Store the original upload untouched.
+    if (!extension_loaded('gd')) {
+        return persistUploadedFile($source, $destination);
+    }
+
+    $imgInfo = @getimagesize($source); 
+    $mime = $imgInfo['mime'] ?? 'image/jpeg'; 
+    $image = null;
+
     switch($mime){ 
         case 'image/jpeg': 
-            $image = imagecreatefromjpeg($source); 
+            if (function_exists('imagecreatefromjpeg')) {
+                $image = imagecreatefromjpeg($source); 
+            }
             break; 
         case 'image/png': 
-            $image = imagecreatefrompng($source); 
+            if (function_exists('imagecreatefrompng')) {
+                $image = imagecreatefrompng($source); 
+            }
             break; 
         case 'image/gif': 
-            $image = imagecreatefromgif($source); 
+            if (function_exists('imagecreatefromgif')) {
+                $image = imagecreatefromgif($source); 
+            }
             break; 
         default: 
-            $image = imagecreatefromjpeg($source); 
+            if (function_exists('imagecreatefromjpeg')) {
+                $image = imagecreatefromjpeg($source); 
+            }
     } 
+
+    if (!$image || !function_exists('imagejpeg')) {
+        return persistUploadedFile($source, $destination);
+    }
      
-    // Save image 
     imagejpeg($image, $destination, $quality); 
-     
-    // Return compressed image 
+    imagedestroy($image);
     return $destination; 
+}
+
+function persistUploadedFile($source, $destination) {
+    if (is_uploaded_file($source)) {
+        move_uploaded_file($source, $destination);
+    } else {
+        copy($source, $destination);
+    }
+    return $destination;
 }

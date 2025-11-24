@@ -4,11 +4,14 @@ require __DIR__ . '/header.php';
 require __DIR__ . '/db.php'; 
 
 if(!isset($_SESSION['name'])) {
-    header('Location: /login');
+    $loginRedirect = login_url_with_redirect($_SERVER['REQUEST_URI'] ?? site_url('orders'));
+    header('Location: ' . $loginRedirect);
+    exit;
 }
 
 if(!isset($_GET['id'])) {
-    header('Location: /profile');
+    header('Location: ' . site_url('profile'));
+    exit;
 }
 
 $details;
@@ -40,7 +43,7 @@ if($statement->rowCount() > 0) {
 								<?php foreach($details as $detail): ?>
                                     <tr>
                                         <td><?= htmlspecialchars($detail['title']) ?></td>
-                                        <td>₦<?= number_format($detail['price'], 2) ?></td>
+                                        <td>INR <?= number_format($detail['price'], 2) ?></td>
                                         <td><?= htmlspecialchars($detail['quantity']) ?></td>
                                         <td><?= number_format($detail['price'] * $detail['quantity'], 2) ?></td>
                                     </tr>
@@ -49,7 +52,7 @@ if($statement->rowCount() > 0) {
 									<td><b>Total</b></td>
 									<td></td>
 									<td></td>
-									<td><b>₦<?php
+									<td><b>INR <?php
                                         $total = 0;
                                         foreach($details as $detail) {
                                             $total += $detail['price'] * $detail['quantity'];

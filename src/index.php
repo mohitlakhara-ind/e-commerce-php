@@ -46,6 +46,10 @@ Route::add('/cart-remove-item', function() {
     require __DIR__ . '/views/cart-remove-item.php';
 });
 
+Route::add('/cart-add-item', function() {
+    require __DIR__ . '/views/cart-add-item.php';
+});
+
 Route::add('/confirmation', function() {
     require __DIR__ . '/views/confirmation.php';
 });

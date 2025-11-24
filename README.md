@@ -1,8 +1,8 @@
-# ![php](https://img.shields.io/badge/Php-8993BE?style=for-the-badge&logo=php&logoColor=white) NovaMart Commerce
+manu# ![php](https://img.shields.io/badge/Php-8993BE?style=for-the-badge&logo=php&logoColor=white) NovaMart Commerce
 NovaMart is a lightweight PHP e-commerce starter that routes every request through [`src/index.php`](src/index.php). The router registers friendly callbacks for each URI and gracefully falls back to a branded 404 page, giving you the flexibility of a modern single-entry application without sacrificing the familiarity of PHP templates.
 
 ## Why this fork feels original
-- A refreshed visual language with gradients, softened neutrals, and tidy spacing to shake off the “generic bootstrap shop” appearance.
+- A refreshed visual language with gradients, softened neutrals, and tidy spacing to shake off the “generic bootstrap shop” appearance.still 
 - Renamed copy blocks, footer text, and onboarding flows so the UI reads like a bespoke storefront.
 - README and setup docs rewritten with the exact steps we follow today, so deploys and hand-offs stay predictable.
 

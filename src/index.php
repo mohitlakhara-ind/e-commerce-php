@@ -78,6 +78,10 @@ Route::add('/400', function() {
     require __DIR__ . '/views/400.php';
 });
 
+Route::add('/404', function() {
+    require __DIR__ . '/views/404.php';
+});
+
 Route::add('/robots.txt', function() {
     require __DIR__ . '/views/robots.txt';
 });

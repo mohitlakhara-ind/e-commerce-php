@@ -98,9 +98,9 @@ require_once __DIR__ . '/../helpers/asset.php';
                     <!-- Site Logo -->
                     <div class="logo text-center">
                         <a href="<?= site_url() ?>">
-                            <svg width="250px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            <svg width="200px" height="25px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="32"
                                     font-family="AustinBold, Austin" font-weight="bold">
                                     <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#b388ff">
                                         <text id="AVIATO">

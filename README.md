@@ -42,6 +42,17 @@ Drop these variables into your own CSS modules or keep extending `views/css/styl
 
 ## Academic context
 - Created for the **College Mini Assignment & Project** submission for **Advanced Web Design (CCBCA512)**.
-- Reviewed, checked, and signed by the supervising instructor prior to hand-in.
-- Submission window: **24 Nov 2025** up to **2:00 PM** only. *No assignments or projects are accepted after 2:00 PM on the same day.*
-- Submitted by **Mohit Lakhara, Lagan Parihar, Muddit Chamber, and Kunal Mittal** of **BCA 5 E2**.
+- Reviewed, checked, and signed by the assistent professor Dr. Ashish Rai prior to hand-in.
+
+- Submitted by the following **BCA 5 E2** team:
+  - **Mohit Lakhara** – Project Manager & Planning Lead
+  - **Lagan Parihar** – UI/UX & Front-end Implementation
+  - **Muddit Chamber** – Back-end & Database Engineering
+  - **Kunal Mittal** – QA, Documentation & Deployment Support
+
+## Software development phases
+1. **Planning** – scoped the mini-assignment, defined user stories, and mapped the submission timeline to the 24 Nov 2025 deadline.
+2. **Design** – produced wireframes, color tokens, and content rewrites that distinguish NovaMart from the original template.
+3. **Implementation** – refactored PHP views, routing, and styling layers with the new brand, security configurations, and copy updates.
+4. **Testing** – validated authentication, cart, admin flows, and visual polish across browsers/devices before instructor review.
+5. **Deployment & Sign-off** – packaged the project, collected teacher approval, and scheduled the final hand-in prior to 2:00 PM.

@@ -40,24 +40,8 @@ password: 123456
 
 Drop these variables into your own CSS modules or keep extending `views/css/style.css`.
 
-## Screenshots
-![Login](screenshots/login.png)
-![Register](screenshots/register.png)
-![Home](screenshots/home.png)
-![Shop](screenshots/shop.png)
-![Product](screenshots/item.png)
-![Cart](screenshots/cart.png)
-![Order Success](screenshots/success.png)
-![Profile](screenshots/profile.png)
-![Orders](screenshots/orders.png)
-![Order Details](screenshots/order-details.png)
-![Forgot Password](screenshots/forgot-password.png)
-![Invoice](screenshots/invoice.png)
-![Admin Login](screenshots/admin-login.png)
-![Admin Home](screenshots/admin-home1.png)
-![Admin Home](screenshots/admin-home2.png)
-![Admin Customers](screenshots/admin-customers.png)
-![Admin Orders](screenshots/admin-orders.png)
-![Admin Products](screenshots/admin-products.png)
-![Admin Reset Password](screenshots/admin-reset-password.png)
-![Admin Settings](screenshots/admin-settings.png)
+## Academic context
+- Created for the **College Mini Assignment & Project** submission for **Advanced Web Design (CCBCA512)**.
+- Reviewed, checked, and signed by the supervising instructor prior to hand-in.
+- Submission window: **24 Nov 2025** up to **2:00 PM** only. *No assignments or projects are accepted after 2:00 PM on the same day.*
+- Submitted by **Mohit Lakhara, Lagan Parihar, Muddit Chamber, and Kunal Mittal** of **BCA 5 E2**.

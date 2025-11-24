@@ -15,7 +15,7 @@ if($statement->rowCount() > 0) {
 	<div class="container">
 		<div class="row">
 			<div class="title text-center">
-				<h2>What would you like today?</h2>
+				<h2>Fresh drops picked for you</h2>
 			</div>
 		</div>
 		<div class="row">
@@ -48,14 +48,14 @@ Start Call To Action
 		<div class="row">
 			<div class="col-md-12 text-center">
 				<div class="title">
-					<h2>SUBSCRIBE TO NEWSLETTER</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, <br> facilis numquam impedit ut sequi. Minus facilis vitae excepturi sit laboriosam.</p>
+					<h2>Stay in the NovaMart loop</h2>
+					<p>Weekly stock alerts, seasonal recipes, and insider perks. Zero spam, zero fluff.</p>
 				</div>
 				<div class="col-lg-6 col-md-offset-3">
 				    <div class="input-group subscription-form">
-				      <input type="text" class="form-control" placeholder="Enter Your Email Address">
+				      <input type="text" class="form-control" placeholder="you@email.com">
 				      <span class="input-group-btn">
-				        <button class="btn btn-main" type="button">Subscribe Now!</button>
+				        <button class="btn btn-main" type="button">Send me updates</button>
 				      </span>
 				    </div><!-- /input-group -->
 			  </div><!-- /.col-lg-6 -->

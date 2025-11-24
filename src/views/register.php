@@ -45,15 +45,15 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Yem Yem Supermarket</title>
+  <title>NovaMart | Create account</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Yem-Yem Supermarket">
+  <meta name="description" content="Create a NovaMart profile to track orders and manage deliveries.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="author" content="Yem-Yem">
-  <meta name="generator" content="Yem-Yem Supermarket">
+  <meta name="author" content="NovaMart Studio">
+  <meta name="generator" content="NovaMart Commerce Stack">
   
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="views/images/favicon.png" />
@@ -94,9 +94,9 @@ if(isset($_POST['register']) && CSRF::validateToken($_POST['token'])) {
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
                         font-family="AustinBold, Austin" font-weight="bold">
-                        <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
+                        <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#4c6ef5">
                             <text id="AVIATO">
-                                <tspan x="108.94" y="325">YEM-YEM</tspan>
+                                <tspan x="108.94" y="325">NOVAMART</tspan>
                             </text>
                         </g>
                     </g>

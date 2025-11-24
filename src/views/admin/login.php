@@ -33,7 +33,7 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Yem-Yem | Admin</title>
+    <title>NovaMart | Admin access</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <link href="/views/admin/assets/css/auth.css" rel="stylesheet">
 </head>

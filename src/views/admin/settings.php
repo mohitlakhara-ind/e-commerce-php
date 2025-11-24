@@ -159,7 +159,7 @@ $email = $statement->fetchAll();
                 </div>
                 <div class="tab-pane fade" id="attributions" role="tabpanel" aria-labelledby="attributions-tab">
                     <h4 class="mb-0">Legal Notice</h4>
-                    <p class="text-muted">Copyright (c) <script>document.write(new Date().getFullYear());</script> Yem-Yem. All rights reserved.</p>
+                    <p class="text-muted">Copyright (c) <script>document.write(new Date().getFullYear());</script> NovaMart. All rights reserved.</p>
                     <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
                         <?php CSRF::csrfInputField() ?>
                         <textarea class="form-control" name="policy" style="resize:none" required rows="20"><?= $privacyPolicy[0]['policy'] ?></textarea>            

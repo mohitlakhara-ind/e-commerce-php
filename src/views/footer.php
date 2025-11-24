@@ -50,7 +50,7 @@ $ig = $statement->fetchColumn();
                             <a href="/faq">FAQ</a>
                         </li>
                     </ul>
-                    <p class="copyright-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script></p>
+                    <p class="copyright-text">NovaMart &copy;<script>document.write(new Date().getFullYear());</script> · Curated essentials for everyday living</p>
                 </div>
             </div>
         </div>

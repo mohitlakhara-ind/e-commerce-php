@@ -132,9 +132,9 @@ function generateInvoice($date){
                                             xmlns:xlink=\"http://www.w3.org/1999/xlink\">
                                             <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" font-size=\"40\"
                                                 font-family=\"AustinBold, Austin\" font-weight=\"bold\">
-                                                <g id=\"Group\" transform=\"translate(-108.000000, -297.000000)\" fill=\"#000000\">
+                                            <g id=\"Group\" transform=\"translate(-108.000000, -297.000000)\" fill=\"#4c6ef5\">
                                                     <text id=\"AVIATO\">
-                                                        <tspan x=\"108.94\" y=\"325\">YEM-YEM</tspan>
+                                                    <tspan x=\"108.94\" y=\"325\">NOVAMART</tspan>
                                                     </text>
                                                 </g>
                                             </g>

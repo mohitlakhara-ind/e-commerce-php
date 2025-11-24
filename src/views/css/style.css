@@ -1,13 +1,25 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500");
+
+:root {
+  --nm-primary: #4c6ef5;
+  --nm-primary-dark: #364fc7;
+  --nm-secondary: #111b2b;
+  --nm-accent: #ffb347;
+  --nm-surface: #f4f6fb;
+  --nm-muted: #5c6279;
+  --nm-border: #dde1f1;
+}
 body {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
+  background: var(--nm-surface);
+  color: var(--nm-secondary);
 }
 
 p {
   font-family: "Poppins", sans-serif;
-  color: #757575;
+  color: var(--nm-muted);
   font-size: 15px;
 }
 
@@ -32,7 +44,12 @@ iframe {
 a, a:focus, a:hover {
   text-decoration: none;
   outline: 0;
-  color: #000;
+  color: var(--nm-primary);
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover, a:focus {
+  color: var(--nm-primary-dark);
 }
 
 blockquote {
@@ -72,15 +89,17 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .btn-main, .btn-solid-border, .btn-transparent, .btn-small {
-  background: #000;
+  background: linear-gradient(120deg, var(--nm-primary), var(--nm-primary-dark));
   color: #fff;
   display: inline-block;
   font-size: 11px;
   letter-spacing: 1px;
   padding: 14px 35px;
   text-transform: uppercase;
-  font-weight: 200;
-  border-radius: 0;
+  font-weight: 500;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 15px 30px rgba(76, 110, 245, 0.25);
 }
 
 .btn-main.btn-icon i, .btn-icon.btn-solid-border i, .btn-icon.btn-transparent i, .btn-icon.btn-small i {
@@ -90,25 +109,27 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .btn-main:hover, .btn-solid-border:hover, .btn-transparent:hover, .btn-small:hover {
-  background: black;
+  background: linear-gradient(120deg, var(--nm-primary-dark), var(--nm-primary));
   color: #fff;
 }
 
 .btn-solid-border {
-  border: 1px solid #000;
-  background: #fff;
-  color: #000;
+  border: 1px solid var(--nm-primary);
+  background: transparent;
+  color: var(--nm-primary);
+  box-shadow: none;
 }
 
 .btn-transparent {
   background: transparent;
   padding: 0;
-  color: #000;
+  color: var(--nm-secondary);
+  box-shadow: none;
 }
 
 .btn-transparent:hover {
   background: transparent;
-  color: #000;
+  color: var(--nm-primary-dark);
 }
 
 .btn-large {
@@ -190,7 +211,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .bg-gray {
-  background: #f9f9f9;
+  background: var(--nm-surface);
 }
 
 .section {
@@ -206,6 +227,8 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: var(--nm-secondary);
+  font-weight: 600;
 }
 
 .category-box {
@@ -391,6 +414,31 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   .call-to-action .subscription-form {
     display: block;
   }
+}
+
+.call-to-action {
+  background: radial-gradient(circle at top right, rgba(255, 179, 71, 0.35), transparent 45%), var(--nm-secondary);
+  border-radius: 24px;
+  margin: 0 15px;
+  color: #fff;
+}
+
+.call-to-action .title h2 {
+  color: #fff;
+}
+
+.call-to-action p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.call-to-action .subscription-form input {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.call-to-action .subscription-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .call-to-action .subscription-form input {
@@ -615,10 +663,19 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   position: relative;
 }
 
+.top-header {
+  background: linear-gradient(120deg, var(--nm-secondary), #1c2550);
+  color: #fff;
+}
+
+.top-header a {
+  color: #f4f6fb;
+}
+
 .top-header .container {
   padding-top: 35px;
   padding-bottom: 35px;
-  border-bottom: 1px solid #dedede;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .top-header .dropdown-menu {
@@ -637,7 +694,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .top-header .contact-number {
   font-size: 12px;
-  color: #333;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 @media (max-width: 480px) {
@@ -667,13 +724,14 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .top-header .top-menu > li > a {
-  color: #333;
+  color: rgba(255, 255, 255, 0.85);
   font-size: 15px;
   padding: 0 8px;
 }
 
 .top-header .top-menu > li > a:hover, .top-header .top-menu > li > a:focus {
   background: transparent;
+  color: #fff;
 }
 
 .top-header .top-menu > li > a i {
@@ -761,6 +819,9 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 .navigation {
   margin-bottom: 0;
   padding: 10px 0;
+  background: #fff;
+  border-bottom: 1px solid var(--nm-border);
+  box-shadow: 0 10px 30px rgba(17, 27, 43, 0.07);
 }
 
 .navigation .menu-title {
@@ -787,11 +848,11 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .navigation .navbar-nav > li.active a {
-  color: #000;
+  color: var(--nm-primary);
 }
 
 .navigation .navbar-nav > li > a {
-  color: #333;
+  color: var(--nm-secondary);
   font-size: 14px;
   padding: 20px 15px;
   text-transform: uppercase;
@@ -801,7 +862,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .navigation .navbar-nav > li > a:hover, .navigation .navbar-nav > li > a:active, .navigation .navbar-nav > li > a:focus {
   background: none;
-  color: #000;
+  color: var(--nm-primary-dark);
 }
 
 .navigation .container {
@@ -836,7 +897,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .navigation .dropdown-slide .dropdown-menu li a:hover {
-  background-color: #000;
+  background-color: var(--nm-primary);
   color: #fff;
 }
 
@@ -1020,6 +1081,11 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .product-item {
   margin-bottom: 30px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--nm-border);
+  box-shadow: 0 25px 45px rgba(17, 27, 43, 0.08);
+  overflow: hidden;
 }
 
 .product-item .product-thumb {
@@ -1029,6 +1095,8 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 .product-item .product-thumb img {
   width: 100%;
   height: auto;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .product-item .product-thumb .bage {
@@ -1046,7 +1114,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 .product-item .product-thumb:before {
   transition: .3s all;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(17, 27, 43, 0.4);
   content: '';
   position: absolute;
   top: 0;
@@ -1099,17 +1167,19 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .product-item .product-content {
   text-align: center;
+  padding: 20px 15px 30px;
 }
 
 .product-item .product-content h4 {
-  font-size: 16px;
-  font-weight: 400;
-  margin-top: 15px;
-  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  color: var(--nm-secondary);
 }
 
 .product-item .product-content h4 a {
-  color: #000;
+  color: var(--nm-secondary);
 }
 
 .product-modal {
@@ -2589,8 +2659,9 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .footer {
-  background: #F7F7F7;
-  padding: 50px 0;
+  background: linear-gradient(180deg, #101624, #0b1120);
+  padding: 60px 0;
+  color: #fff;
 }
 
 .footer .footer-menu {
@@ -2603,8 +2674,13 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .footer .footer-menu li a {
-  color: #333;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.footer .footer-menu li a:hover {
+  color: #fff;
 }
 
 .footer .copyright-text {
@@ -2612,7 +2688,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 .copyright-text a {
-  color: #000;
+  color: var(--nm-accent);
 }
 
 .social-media li {
@@ -2626,6 +2702,6 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .social-media li a i {
   font-size: 20px;
-  color: #555;
+  color: #fff;
 }
 

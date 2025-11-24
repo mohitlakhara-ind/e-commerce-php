@@ -22,7 +22,7 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
     $statement = $pdo->prepare("UPDATE users SET code=?, expiration=? WHERE email=?");
     $statement->execute(array($code, $expirationTime, $email));
     $mail = new \SendGrid\Mail\Mail();
-    $mail->setFrom("donotreply@em3819.tomiwa.com.ng", "Yem-Yem");
+    $mail->setFrom("donotreply@em3819.tomiwa.com.ng", "NovaMart");
     $mail->setSubject("Password Reset");
     $mail->addTo($email, $email);
     $mail->addContent("text/plain", "Reset code: ". $code . "\n\nIf you didn't request for a password reset, ignore this message.");
@@ -47,7 +47,7 @@ if(isset($_POST['submit']) && CSRF::validateToken($_POST['token'])) {
   <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Yem-Yem | Forgot Password</title>
+  <title>NovaMart | Forgot password</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->

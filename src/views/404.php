@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+require_once __DIR__ . '/../helpers/asset.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,20 +20,20 @@
   <meta name="generator" content="NovaMart Commerce Stack">
   
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="/views/images/favicon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="<?= asset_url('views/images/favicon.png') ?>" />
   
-  <link rel="stylesheet" href="/views/plugins/themefisher-font/style.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/themefisher-font/style.css') ?>">
   <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="/views/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/bootstrap/css/bootstrap.min.css') ?>">
   
   <!-- Animate css -->
-  <link rel="stylesheet" href="/views/plugins/animate/animate.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/animate/animate.css') ?>">
   <!-- Slick Carousel -->
-  <link rel="stylesheet" href="/views/plugins/slick/slick.css">
-  <link rel="stylesheet" href="/views/plugins/slick/slick-theme.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/slick/slick.css') ?>">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/slick/slick-theme.css') ?>">
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="/views/css/style.css">
+  <link rel="stylesheet" href="<?= asset_url('views/css/style.css') ?>">
 
 </head>
 
@@ -40,12 +43,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<a href="index.html">
-						<img src="/images/logo.png" alt="site logo" />
+					<a href="<?= site_url() ?>">
+						<img src="<?= asset_url('views/images/logo.png') ?>" alt="site logo" />
 					</a>
 					<h1>404</h1>
 					<h2>Page Not Found</h2>
-					<a href="/" class="btn btn-main"><i class="tf-ion-android-arrow-back"></i> Go Home</a>
+					<a href="<?= site_url() ?>" class="btn btn-main"><i class="tf-ion-android-arrow-back"></i> Go Home</a>
 					<p class="copyright-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script></p>
 				</div>
 			</div>
@@ -57,22 +60,22 @@
     =====================================-->
     
     <!-- Main jQuery -->
-    <script src="/views/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="<?= asset_url('views/plugins/jquery/dist/jquery.min.js') ?>"></script>
     <!-- Bootstrap 3.1 -->
-    <script src="/views/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= asset_url('views/plugins/bootstrap/js/bootstrap.min.js') ?>"></script>
     <!-- Bootstrap Touchpin -->
-    <script src="/views/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="<?= asset_url('views/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') ?>"></script>
     <!-- Video Lightbox Plugin -->
-    <script src="/views/plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <script src="<?= asset_url('views/plugins/ekko-lightbox/dist/ekko-lightbox.min.js') ?>"></script>
     <!-- Count Down Js -->
-    <script src="/views/plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+    <script src="<?= asset_url('views/plugins/syo-timer/build/jquery.syotimer.min.js') ?>"></script>
 
     <!-- slick Carousel -->
-    <script src="/views/plugins/slick/slick.min.js"></script>
-    <script src="/views/plugins/slick/slick-animation.min.js'"></script>
+    <script src="<?= asset_url('views/plugins/slick/slick.min.js') ?>"></script>
+    <script src="<?= asset_url('views/plugins/slick/slick-animation.min.js') ?>"></script>
 
     <!-- Main Js File -->
-    <script src="/views/js/script.js"></script>
+    <script src="<?= asset_url('views/js/script.js') ?>"></script>
     
     
 

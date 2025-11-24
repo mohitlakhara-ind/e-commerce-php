@@ -27,7 +27,7 @@ if($statement->rowCount() > 0) {
                                 <img class="img-responsive" src="<?= htmlspecialchars(unserialize($item['images'])[0]) ?>" alt="<?= htmlspecialchars($item['title']) ?>" />
                             </div>
                             <div class="product-content">
-                                <h4><a href="/item?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
+                                <h4><a href="<?= site_url('item') ?>?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
                                 <p class="price">₦ <?= number_format($item['price'], 2) ?></p>
                             </div>
                         </div>

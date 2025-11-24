@@ -13,6 +13,27 @@ class Route{
     static public function submit()
     {
         $uri = explode('?', $_SERVER['REQUEST_URI'])[0];
+
+        // Normalise URI so routing works when the project lives in a subdirectory
+        $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])), '/');
+        if ($basePath !== '' && $basePath !== '.') {
+            if (strpos($uri, $basePath) === 0) {
+                $uri = substr($uri, strlen($basePath));
+                if ($uri === false || $uri === '') {
+                    $uri = '/';
+                }
+            }
+        }
+
+        // Ensure URI starts with a slash for consistent matching
+        if ($uri === '' || $uri[0] !== '/') {
+            $uri = '/' . ltrim($uri, '/');
+        }
+
+        // Normalise requests to index.php so they resolve to the home route
+        if ($uri === '/index.php') {
+            $uri = '/';
+        }
         $doesUriMatch = false;
 
         foreach(self::$uriList as $u)

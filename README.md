@@ -55,4 +55,4 @@ Drop these variables into your own CSS modules or keep extending `views/css/styl
 2. **Design** – produced wireframes, color tokens, and content rewrites that distinguish NovaMart from the original template.
 3. **Implementation** – refactored PHP views, routing, and styling layers with the new brand, security configurations, and copy updates.
 4. **Testing** – validated authentication, cart, admin flows, and visual polish across browsers/devices before instructor review.
-5. **Deployment & Sign-off** – packaged the project, collected teacher approval, and scheduled the final hand-in prior to 2:00 PM.
+5. **Deployment** – deployed to github.

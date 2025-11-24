@@ -1,6 +1,8 @@
 <?php 
 ob_start();
 session_start(); 
+
+require_once __DIR__ . '/../helpers/asset.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,20 +22,61 @@ session_start();
   <meta name="generator" content="NovaMart Commerce Stack">
   
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="views/images/favicon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="<?= asset_url('views/images/favicon.png') ?>" />
   
-  <link rel="stylesheet" href="views/plugins/themefisher-font/style.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/themefisher-font/style.css') ?>">
   <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="views/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/bootstrap/css/bootstrap.min.css') ?>">
   
   <!-- Animate css -->
-  <link rel="stylesheet" href="views/plugins/animate/animate.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/animate/animate.css') ?>">
   <!-- Slick Carousel -->
-  <link rel="stylesheet" href="views/plugins/slick/slick.css">
-  <link rel="stylesheet" href="views/plugins/slick/slick-theme.css">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/slick/slick.css') ?>">
+  <link rel="stylesheet" href="<?= asset_url('views/plugins/slick/slick-theme.css') ?>">
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="views/css/style.css">
+  <link rel="stylesheet" href="<?= asset_url('views/css/style.css') ?>">
+
+  <script>
+    window.__NOVA_BASE_PATH = "<?= asset_base_path() ?>";
+    (function() {
+      var base = window.__NOVA_BASE_PATH || '';
+      if (!base || base === '/') {
+        return;
+      }
+
+      function withBase(url) {
+        if (!url || url[0] !== '/' || url.startsWith('//')) {
+          return url;
+        }
+        if (url.startsWith(base + '/')) {
+          return url;
+        }
+        var sanitizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+        return sanitizedBase + url;
+      }
+
+      function hydrateLinks() {
+        var anchors = document.querySelectorAll('a[href^="/"]');
+        anchors.forEach(function(anchor) {
+          var href = anchor.getAttribute('href');
+          anchor.setAttribute('href', withBase(href));
+        });
+
+        var forms = document.querySelectorAll('form[action^="/"]');
+        forms.forEach(function(form) {
+          var action = form.getAttribute('action');
+          form.setAttribute('action', withBase(action));
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hydrateLinks);
+      } else {
+        hydrateLinks();
+      }
+    })();
+  </script>
 
 </head>
 
@@ -52,7 +95,7 @@ session_start();
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     <!-- Site Logo -->
                     <div class="logo text-center">
-                        <a href="/">
+                        <a href="<?= site_url() ?>">
                             <svg width="250px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
@@ -87,7 +130,7 @@ session_start();
                                         <span class="total-price">₦ 0.00</span>
                                     </div>
                                     <ul class="text-center cart-buttons">
-                                        <li><a href="/cart" class="btn btn-small">View Cart</a></li>
+                                        <li><a href="<?= site_url('cart') ?>" class="btn btn-small">View Cart</a></li>
                                     </ul>
     
                                 <?php else: ?>
@@ -104,7 +147,7 @@ session_start();
                                                 </div>
                                                 <h5><strong>₦ <?= number_format($item['quantity'] * $item['price'], 2) ?></strong></h5>
                                             </div>
-                                            <a href="/cart-remove-item?id=<?= htmlspecialchars($item['id']) ?>"><i class="tf-ion-close"></i></a>
+                                            <a href="<?= site_url('cart-remove-item') ?>?id=<?= htmlspecialchars($item['id']) ?>"><i class="tf-ion-close"></i></a>
                                         </div>
                                     <?php endforeach; ?>
                                     <div class="cart-summary">
@@ -119,7 +162,7 @@ session_start();
                                         </span>
                                     </div>
                                     <ul class="text-center cart-buttons">
-                                        <li><a href="/cart" class="btn btn-small" data-link>View Cart</a></li>
+                                        <li><a href="<?= site_url('cart') ?>" class="btn btn-small" data-link>View Cart</a></li>
                                     </ul>
                                 <?php endif ?>
                             </div>
@@ -154,17 +197,17 @@ session_start();
 
                         <!-- Home -->
                         <li class="dropdown ">
-                            <a href="/" data-link>Home</a>
+                            <a href="<?= site_url() ?>" data-link>Home</a>
                         </li><!-- / Home -->
 
 
                         <!-- Shop -->
                         <li class="dropdown ">
-                            <a href="/products" data-link>Shop</a>
+                            <a href="<?= site_url('products') ?>" data-link>Shop</a>
                         </li><!-- / Shop -->
 
                         <li class="dropdown ">
-                            <a href="/about" data-link>About</a>
+                            <a href="<?= site_url('about') ?>" data-link>About</a>
                         </li><!-- / About -->
 
                         <?php if(isset($_SESSION['name'])): ?>
@@ -173,8 +216,8 @@ session_start();
                                     role="button" aria-haspopup="true" aria-expanded="false"><?php echo htmlspecialchars($_SESSION['name']); ?><span
                                         class="tf-ion-ios-arrow-down"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/profile">Profile</a></li>
-                                    <li><a href="/logout">Logout</a></li>
+                                    <li><a href="<?= site_url('profile') ?>">Profile</a></li>
+                                    <li><a href="<?= site_url('logout') ?>">Logout</a></li>
                                 </ul>
                             </li>
                         <?php else: ?>
@@ -183,8 +226,8 @@ session_start();
                                     role="button" aria-haspopup="true" aria-expanded="false">Account <span
                                         class="tf-ion-ios-arrow-down"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/login">Login</a></li>
-                                    <li><a href="/register">Register</a></li>
+                                    <li><a href="<?= site_url('login') ?>">Login</a></li>
+                                    <li><a href="<?= site_url('register') ?>">Register</a></li>
                                 </ul>
                             </li>
                         <?php endif ?>

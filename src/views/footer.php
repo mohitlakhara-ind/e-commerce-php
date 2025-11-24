@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/../helpers/asset.php';
 require __DIR__ . '/db.php';
 
 $statement = $pdo->prepare("SELECT value FROM contact WHERE name=?");
@@ -41,13 +42,13 @@ $ig = $statement->fetchColumn();
                             <a href="contact.html">CONTACT</a>
                         </li>
                         <li>
-                            <a href="/products">SHOP</a>
+                            <a href="<?= site_url('products') ?>">SHOP</a>
                         </li>
                         <li>
-                            <a href="/privacy-policy">PRIVACY POLICY</a>
+                            <a href="<?= site_url('privacy-policy') ?>">PRIVACY POLICY</a>
                         </li>
                         <li>
-                            <a href="/faq">FAQ</a>
+                            <a href="<?= site_url('faq') ?>">FAQ</a>
                         </li>
                     </ul>
                     <p class="copyright-text">NovaMart &copy;<script>document.write(new Date().getFullYear());</script> · Curated essentials for everyday living</p>
@@ -62,22 +63,22 @@ $ig = $statement->fetchColumn();
     =====================================-->
     
     <!-- Main jQuery -->
-    <script src="views/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="<?= asset_url('views/plugins/jquery/dist/jquery.min.js') ?>"></script>
     <!-- Bootstrap 3.1 -->
-    <script src="views/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= asset_url('views/plugins/bootstrap/js/bootstrap.min.js') ?>"></script>
     <!-- Bootstrap Touchpin -->
-    <script src="views/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="<?= asset_url('views/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') ?>"></script>
     <!-- Video Lightbox Plugin -->
-    <script src="views/plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <script src="<?= asset_url('views/plugins/ekko-lightbox/dist/ekko-lightbox.min.js') ?>"></script>
     <!-- Count Down Js -->
-    <script src="views/plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+    <script src="<?= asset_url('views/plugins/syo-timer/build/jquery.syotimer.min.js') ?>"></script>
 
     <!-- slick Carousel -->
-    <script src="views/plugins/slick/slick.min.js"></script>
-    <script src="views/plugins/slick/slick-animation.min.js'"></script>
+    <script src="<?= asset_url('views/plugins/slick/slick.min.js') ?>"></script>
+    <script src="<?= asset_url('views/plugins/slick/slick-animation.min.js') ?>"></script>
 
     <!-- Main Js File -->
-    <script src="views/js/script.js"></script>
+    <script src="<?= asset_url('views/js/script.js') ?>"></script>
     
     <?php if(isset($_SESSION['name'])): ?>
         <script>

@@ -14,14 +14,15 @@ NovaMart is a lightweight PHP e-commerce starter that routes every request throu
 - Admin workspace for products, FAQs, customers, and exports/imports with 7-day revenue charts via Chart.js and on-the-fly image compression using [php_gd](https://php.net/manual/en/book.image.php).
 
 ## Getting started
-1. Create a MySQL/MariaDB database.
-2. Run [`src/db-settings.sql`](src/db-settings.sql) to seed schema and demo data.
-3. Update database credentials inside [`src/views/db.php`](src/views/db.php).
-4. Provide your SendGrid API key in [`src/views/admin/util.php`](src/views/admin/util.php#L5) and (optionally) adjust the sending domain references in [`src/views/admin/util.php`](src/views/admin/util.php#L20) and [`src/views/cart.php`](src/views/cart.php#L20).
-5. Plug your Intercom App ID into [`src/views/footer.php`](src/views/footer.php#L82).
-6. Enable the `php_gd` extension in `php.ini` so uploads benefit from automated compression.
+1. Clone this repo into your web root (e.g. `C:\xampp-1\htdocs\e-commerce` or `/var/www/html/e-commerce`).
+2. Create a MySQL/MariaDB database.
+3. Run [`src/db-settings.sql`](src/db-settings.sql) to create tables and seed the demo categories/products.
+4. Either edit [`src/views/db.php`](src/views/db.php) with your DB credentials or provide `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` as environment variables.
+5. Set `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, and `SENDGRID_FROM_NAME` environment variables (or populate `$key`/from info in [`src/views/admin/util.php`](src/views/admin/util.php)) so checkout emails work.
+6. Plug your Intercom App ID into [`src/views/footer.php`](src/views/footer.php#L82) if you want chat support.
+7. Enable the `php_gd` extension in `php.ini` for image compression (uploads still succeed without it but won’t be optimised).
 
-> **Heads-up:** Environment secrets are stored directly in PHP for simplicity. Swap to dotenv / environment variables before deploying to shared infrastructure.
+> **Heads-up:** Production deploys should prefer environment variables (.env, Apache `SetEnv`, etc.) over hard-coded secrets.
 
 ## Admin credentials
 ```
@@ -33,10 +34,10 @@ password: 123456
 ## Design tokens
 | Token | Value | Purpose |
 | ----- | ----- | ------- |
-| `--nm-primary` | `#4c6ef5` | Buttons, highlights |
-| `--nm-secondary` | `#111b2b` | Navigation, headings |
-| `--nm-accent` | `#ffb347` | Badges, CTAs |
-| `--nm-surface` | `#f4f6fb` | Section backgrounds |
+| `--nm-primary` | `#b388ff` | Buttons, highlights |
+| `--nm-secondary` | `#2d1b4f` | Navigation, headings |
+| `--nm-accent` | `#ffb8d2` | Badges, CTAs |
+| `--nm-surface` | `#f8f5ff` | Section backgrounds |
 
 Drop these variables into your own CSS modules or keep extending `views/css/style.css`.
 

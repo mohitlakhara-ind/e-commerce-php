@@ -69,7 +69,17 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 	}
 }
 
+$productsBaseUrl = site_url('products');
+$activeCategoryParam = filter_input(INPUT_GET, 'c', FILTER_UNSAFE_RAW);
+$buildPaginationUrl = function (int $pageNumber) use ($productsBaseUrl, $activeCategoryParam): string {
+	$pageNumber = max(1, $pageNumber);
+	$params = ['p' => $pageNumber];
+	if ($activeCategoryParam !== null && $activeCategoryParam !== '') {
+		$params = ['c' => $activeCategoryParam] + $params;
+	}
 
+	return $productsBaseUrl . '?' . http_build_query($params);
+};
 
 
 ?>
@@ -118,13 +128,13 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 					<?php if(!$searchEmpty): ?>
 						<?php foreach($products as $product): ?>
 							<div class="product-grid__cell">
-								<div class="product-item">
+								<div class="product-item product-item--clickable" tabindex="0" data-product-url="<?= site_url('item') ?>?id=<?= htmlspecialchars($product['id']) ?>">
 									<div class="product-thumb">
 										<!--<span class="bage">Sale</span>-->
 										<img class="img-responsive" src="<?= htmlspecialchars(unserialize($product['images'])[0]) ?>" alt="product-img" />
 									</div>
 									<div class="product-content">
-										<h4><a href="<?= site_url('item') ?>?id=<?= htmlspecialchars($product['id']) ?>"><?= htmlspecialchars($product['title']) ?></a></h4>
+										<h4><?= htmlspecialchars($product['title']) ?></h4>
 										<p class="price">INR <?= number_format($product['price'], 2) ?></p>
 										<form class="mt-10" method="post" action="<?= site_url('cart-add-item') ?>">
 											<?php CSRF::csrfInputField() ?>
@@ -155,58 +165,17 @@ if(isset($_POST['q']) && isset($_GET['c']) && CSRF::validateToken($_POST['token'
 			</div>
 		
 		</div>
-		<?php if(!isset($_POST['q'])): ?>
+		<?php if(!isset($_POST['q']) && isset($number_of_pages) && $number_of_pages > 1): ?>
 			<div class="row">
 				<div class="col-sm-12 text-center">
 					<?php
-						if(isset($_GET['c'])){
-							if($page == 1) {
-								for($i = $page; $i <= $number_of_pages; $i++) {
-									echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $i . '">' . $i . '</a>';
-									if($i == 3) {
-										break;
-									}
-								}
-							} elseif($page == $number_of_pages) {
-								if($page - 3 > 0) {
-									echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page - 2 . '">' . $page - 2 . ' </a>';
-									echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page - 1 . '">  ' . $page - 1 . ' </a>';
-									echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page  . '">  ' . $page . '</a>';
-								} elseif($page - 2 > 0) {
-									echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page - 1 . '">  ' . $page - 1 . ' </a>';
-									echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page . '">  ' . $page . ' </a>';
-								} else {
-									echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page . '">  ' . $page . ' </a>';
-								}
-							} else {
-								echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page - 1 . '">  ' . $page - 1 . ' </a>';
-								echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page . '">  ' . $page . ' </a>';
-								echo '<a href="/products?c=' . filter_input(INPUT_GET, 'c') . '&p=' . $page + 1 . '">  ' . $page + 1 . ' </a>';
-							}
-						} else {
-							if($page == 1) {
-								for($i = $page; $i <= $number_of_pages; $i++) {
-									echo '<a href="/products?p=' . $i . '">' . $i . '</a>';
-									if($i == 3) {
-										break;
-									}
-								}
-							} elseif($page == $number_of_pages) {
-								if($page - 3 > 0) {
-									echo '<a href="/products?p=' . $page - 2 . '">  ' . $page - 2 . ' </a>';
-									echo '<a href="/products?p=' . $page - 1 . '">  ' . $page - 1 . ' </a>';
-									echo '<a href="/products?p=' . $page  . '">  ' . $page . '</a>';
-								} elseif($page - 2 > 0) {
-									echo '<a href="/products?p=' . $page - 1 . '">  ' . $page - 1 . ' </a>';
-									echo '<a href="/products?p=' . $page . '">  ' . $page . ' </a>';
-								} else {
-									echo '<a href="/products?p=' . $page . '">  ' . $page . ' </a>';
-								}
-							} else {
-								echo '<a href="/products?p=' . $page - 1 . '">  ' . $page - 1 . ' </a>';
-								echo '<a href="/products?p=' . $page . '">' . $page . ' </a>';
-								echo '<a href="/products?p=' . $page + 1 . '">  ' . $page + 1 . ' </a>';
-							}   
+						$maxLinks = 3;
+						$startPage = max(1, (int)$page - 1);
+						$endPage = min($number_of_pages, $startPage + $maxLinks - 1);
+						$startPage = max(1, $endPage - $maxLinks + 1);
+
+						for ($i = $startPage; $i <= $endPage; $i++) {
+							echo '<a href="' . htmlspecialchars($buildPaginationUrl($i)) . '">' . $i . '</a>';
 						}
 					?>
 				</div>

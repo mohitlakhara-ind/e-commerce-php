@@ -39,7 +39,7 @@ $ig = $statement->fetchColumn();
                     </ul>
                     <ul class="footer-menu text-uppercase">
                         <li>
-                            <a href="contact.html">CONTACT</a>
+                            <a href="<?= site_url('about') ?>#contact-details">CONTACT</a>
                         </li>
                         <li>
                             <a href="<?= site_url('products') ?>">SHOP</a>

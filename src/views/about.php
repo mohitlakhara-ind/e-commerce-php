@@ -35,7 +35,7 @@ $email = $statement->fetchColumn();
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 mt-20">
-				<img class="img-responsive" src="views/images/cart.jpg">
+				<img class="img-responsive" src="<?= asset_url('views/images/cart.jpg') ?>" alt="NovaMart cart illustration">
 			</div>
 			<div class="col-md-6">
 				<h2>About Our Shop</h2>
@@ -43,7 +43,7 @@ $email = $statement->fetchColumn();
 			</div>
 		</div>
 		<div class="row mt-40">
-            <div class="contact-details col-md-6 " >
+            <div class="contact-details col-md-6" id="contact-details">
                 <ul class="contact-short-info" >
                     <li>
                         <i class="tf-ion-ios-home"></i>

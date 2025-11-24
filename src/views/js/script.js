@@ -36,5 +36,27 @@
   });
   $('.hero-slider').slickAnimation();
 
+  function handleProductNavigation(event) {
+    var interactiveTarget = $(event.target).closest('a, button, input, textarea, select, label, form');
+    if (interactiveTarget.length) {
+      return;
+    }
+
+    var productCard = $(event.currentTarget);
+    var url = productCard.data('productUrl');
+    if (url) {
+      window.location.href = url;
+    }
+  }
+
+  function handleProductKeypress(event) {
+    if (event.key !== 'Enter') {
+      return;
+    }
+    handleProductNavigation(event);
+  }
+
+  $(document).on('click', '.product-item--clickable', handleProductNavigation);
+  $(document).on('keypress', '.product-item--clickable', handleProductKeypress);
 
 })(jQuery);

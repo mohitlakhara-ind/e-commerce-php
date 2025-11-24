@@ -26,12 +26,12 @@ $placeholdersNeeded = $itemCount % $itemsPerRow === 0 ? 0 : $itemsPerRow - ($ite
 		<div class="products-grid">
 			<?php foreach($items as $item): ?>
 				<div class="col-md-4 product-grid__cell">
-					<div class="product-item">
+					<div class="product-item product-item--clickable" tabindex="0" data-product-url="<?= site_url('item') ?>?id=<?= htmlspecialchars($item['id']) ?>">
 						<div class="product-thumb">
 							<img class="img-responsive" src="<?= htmlspecialchars(unserialize($item['images'])[0]) ?>" alt="<?= htmlspecialchars($item['title']) ?>" />
 						</div>
 						<div class="product-content">
-							<h4><a href="<?= site_url('item') ?>?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
+							<h4><?= htmlspecialchars($item['title']) ?></h4>
 							<p class="price">INR <?= number_format($item['price'], 2) ?></p>
 							<form class="mt-10" method="post" action="<?= site_url('cart-add-item') ?>">
 								<?php CSRF::csrfInputField() ?>

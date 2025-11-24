@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require_once __DIR__ . '/../helpers/asset.php';
 require __DIR__ . '/../csrf.php';
 
 if (!isset($_SESSION['cart'])) {
@@ -8,7 +9,8 @@ if (!isset($_SESSION['cart'])) {
 }
 
 if(!isset($_GET['id'])) {
-    header('Location: /404');
+    header('Location: ' . site_url('404'));
+    exit;
 }
 
 $inCart = false;
@@ -51,8 +53,8 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
         <div class="row">
 			<div class="col-md-6">
 				<ol class="breadcrumb">
-					<li><a href="/">Home</a></li>
-					<li><a href="/products">Shop</a></li>
+					<li><a href="<?= site_url() ?>">Home</a></li>
+					<li><a href="<?= site_url('products') ?>">Shop</a></li>
 					<li class="active"><?= htmlspecialchars($item[0]['category']); ?></li>
 				</ol>
 			</div>
@@ -108,7 +110,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <div class="col-md-7">
-                <form action="/item?id=<?= htmlspecialchars($item[0]['id']) ?>" method="post">
+                <form action="<?= site_url('item') ?>?id=<?= htmlspecialchars($item[0]['id']) ?>" method="post">
                     <div class="single-product-details">
                         <h2><?= htmlspecialchars($item[0]['title']) ?></h2>
                         <?php CSRF::csrfInputField() ?>
@@ -129,7 +131,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <div class="product-category">
                             <span>Categories:</span>
                             <ul>
-                                <li><a href="/products?c=<?= htmlspecialchars($item[0]['category']) ?>"><?= htmlspecialchars($item[0]['category']) ?></a></li>
+                                <li><a href="<?= site_url('products') ?>?c=<?= urlencode($item[0]['category']) ?>"><?= htmlspecialchars($item[0]['category']) ?></a></li>
                                 <input type="text" name="category" value="<?= htmlspecialchars($item[0]['category']) ?>" hidden>
                             </ul>
                         </div>
@@ -175,7 +177,7 @@ $relatedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
                           	</div>
     					</div>
     					<div class="product-content">
-    						<h4><a href="/item?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
+    						<h4><a href="<?= site_url('item') ?>?id=<?= htmlspecialchars($item['id']) ?>"><?= htmlspecialchars($item['title']) ?></a></h4>
     						<p class="price">INR <?= number_format($item['price'], 2) ?></p>
     					</div>
     				</div>

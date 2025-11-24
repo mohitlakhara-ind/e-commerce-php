@@ -20,8 +20,8 @@ $orders = $statement->fetchAll(PDO::FETCH_ASSOC);
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="list-inline dashboard-menu text-center">
-                    <li><a href="/profile">Profile Details</a></li>
-					<li><a class="active" href="/orders">Orders</a></li>
+                    <li><a href="<?= site_url('profile') ?>">Profile Details</a></li>
+					<li><a class="active" href="<?= site_url('orders') ?>">Orders</a></li>
 				</ul>
 				<div class="dashboard-wrapper user-dashboard">
                     <div class="table-responsive">
@@ -46,7 +46,7 @@ $orders = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     echo $total;
                                     ?>
                                 </td>
-                                <td><a href="/order-details?id=<?= htmlspecialchars($order['id']) ?>" class="btn btn-default">View</a></td>
+                                <td><a href="<?= site_url('order-details') ?>?id=<?= htmlspecialchars($order['id']) ?>" class="btn btn-default">View</a></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

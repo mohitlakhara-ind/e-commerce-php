@@ -1,11 +1,18 @@
 <?php 
 
 session_start();
+require_once __DIR__ . '/../helpers/asset.php';
 
-if(str_contains($_SERVER['HTTP_REFERER'], '/cart')) {
+$refererPath = '';
+if (!empty($_SERVER['HTTP_REFERER'])) {
+  $refererPath = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) ?? '';
+}
+
+if($refererPath && str_contains($refererPath, '/cart')) {
   unset($_SESSION['cart']); 
 } else {
-  header('Location: /products');
+  header('Location: ' . site_url('products'));
+  exit;
 }
 
 require __DIR__ . '/header.php';
@@ -18,7 +25,7 @@ require __DIR__ . '/header.php';
         <div class="block text-center">
         	<i class="tf-ion-android-checkmark-circle"></i>
           <h2 class="text-center">Thank you for shopping with us</h2>
-          <a href="/products" class="btn btn-main mt-20">Continue Shopping</a>
+          <a href="<?= site_url('products') ?>" class="btn btn-main mt-20">Continue Shopping</a>
         </div>
       </div>
     </div>

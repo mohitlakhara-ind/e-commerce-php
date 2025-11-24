@@ -1209,8 +1209,14 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   color: var(--nm-secondary);
 }
 
-.product-item .product-content h4 a {
-  color: var(--nm-secondary);
+.product-item--clickable {
+  cursor: pointer;
+  position: relative;
+}
+
+.product-item--clickable:focus {
+  outline: none;
+  box-shadow: 0 25px 45px rgba(17, 27, 43, 0.2), 0 0 0 3px rgba(179, 136, 255, 0.4);
 }
 
 /* Invisible placeholders keep the auto-fit grid aligned without showing UI */

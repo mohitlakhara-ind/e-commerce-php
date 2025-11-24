@@ -91,7 +91,7 @@ require_once __DIR__ . '/../helpers/asset.php';
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     <div class="contact-number">
                         <i class="tf-ion-ios-telephone"></i>
-                        <span>+234-80-7744-9922</span>
+                        <span>+91 78000778</span>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-4">

@@ -1,0 +1,14 @@
+{
+  "name": "e-commerce-php",
+  "description": "Professional learning codebase built with PHP.",
+  "topics": [
+    "php",
+    "learning",
+    "optimized-portfolio"
+  ],
+  "homepage_url": "https://github.com/mohitlakhara-ind/e-commerce-php",
+  "private": false,
+  "has_issues": true,
+  "has_projects": true,
+  "has_wiki": true
+}
